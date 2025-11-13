@@ -30,7 +30,6 @@ func main() {
 }
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
-	// Извлекаем shortCode из URL
 	path := strings.TrimPrefix(r.URL.Path, "/stats/")
 	parts := strings.Split(path, "/")
 	if len(parts) == 0 {
@@ -40,7 +39,6 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 
 	shortCode := parts[0]
 
-	// Получаем статистику из PostgreSQL
 	stats, err := storage.Postgres.GetStats(shortCode)
 	if err != nil {
 		http.Error(w, "Failed to get stats", http.StatusInternalServerError)
@@ -52,7 +50,6 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Возвращаем статистику в JSON
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(stats)
 }
