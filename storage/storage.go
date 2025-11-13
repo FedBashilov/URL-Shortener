@@ -5,6 +5,11 @@ import (
 	"sync"
 )
 
+var (
+	Memory   *URLStorage
+	Postgres *PostgresStorage
+)
+
 type URLStorage struct {
 	mu   sync.RWMutex
 	urls map[string]string
